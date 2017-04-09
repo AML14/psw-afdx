@@ -6,8 +6,12 @@
 #define AFDX_PACKET_TYPE_ADIRU   1
 #define AFDX_PACKET_TYPE_ENGINE  2
 
+#define DECLARE_MESSAGE(x) typedef struct __attribute__((__packed__)) x
 
-typedef struct afdx_adiru_t { /* Air Data Inertial Reference Unit */
+/**
+ * Air Data Inertial Reference Unit payload
+ */
+DECLARE_MESSAGE(afdx_adiru_t) { 
 	int16_t airspeed;
 	int32_t altitude;
 
@@ -18,7 +22,11 @@ typedef struct afdx_adiru_t { /* Air Data Inertial Reference Unit */
 	int16_t yaw;
 } afdx_adiru_t;
 
-typedef struct afdx_engine_t {
+
+/**
+ * Engine
+ */
+DECLARE_MESSAGE(afdx_engine_t) {
 
 	uint8_t engine_id;
 
@@ -38,7 +46,11 @@ typedef struct afdx_engine_t {
 	uint8_t flag_maintainance : 1;
 } afdx_engine_t;
 
-typedef struct afdx_packet_t {
+/**
+ * The struct of data received by UDP socket. Based on the identifier value, the payload is
+ * accordingly filled.
+ */
+DECLARE_MESSAGE(afdx_packet_t) {
 
 	uint8_t identifier;
 
