@@ -23,7 +23,7 @@
      #include <libproc.h>
 #endif
 
-#include "simplog.h"
+#include "../include/simplog.h"
 
 // Used for printing from within the logger. Prints if debug level is SIMPLOG_DEBUG or higher
 #define SIMPLOG_LOGGER  4
@@ -105,7 +105,7 @@ void writeLog( int loglvl, const char* str, ... ) {
     if( lineWrap ) {
         lineWrapSize = ( 32 * ( stringSize / 80 ) );
     }
-    
+
     // Calculate the total message size
     int msgSize = stringSize + lineWrapSize + strlen( strerror( errno ) ) + 50;  // 50 char buffer to prevent overflow
 

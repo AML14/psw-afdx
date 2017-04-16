@@ -6,7 +6,7 @@ intdata_t intdata;
 int main() {
 
 	simplog.writeLog( SIMPLOG_INFO, "Starting..." );
-	
+
 	simplog.writeLog( SIMPLOG_DEBUG, "Creating the internal data structure..." );
 	/* Set the internal data structures as invalid */
 	for (int i=0; i<NR_ENGINES; i++) {

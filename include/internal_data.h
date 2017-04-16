@@ -57,4 +57,3 @@ typedef struct intdata_t {
 } intdata_t;
 
 extern intdata_t intdata;
-

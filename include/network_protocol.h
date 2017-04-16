@@ -11,7 +11,7 @@
 /**
  * Air Data Inertial Reference Unit payload
  */
-DECLARE_MESSAGE(afdx_adiru_t) { 
+DECLARE_MESSAGE(afdx_adiru_t) {
 	int16_t airspeed;
 	int32_t altitude;
 
