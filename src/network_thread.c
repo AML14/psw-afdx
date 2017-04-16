@@ -30,17 +30,21 @@ void *network_thread(void *arg)
     while(1)
     {
         node = next_nqnode_in();
-        slen = sizeof(struct sockaddr_in);
-        rcv_size = recvfrom(net_sockfd, (void *)(&(node->packet)),
-                sizeof(afdx_packet_t), 0,
-                (struct sockaddr *)(&(node->source)), &slen);
-        if (rcv_size < 0)
+        if (node != NULL) // Queue is not full
         {
-            /* Manage error */
-        }
-        else
-        {
-            /* Rise sync mutex for elaboration_thread to be able to get a node */
+            slen = sizeof(struct sockaddr_in);
+            rcv_size = recvfrom(net_sockfd, (void *)(&(node->packet)),
+                    sizeof(afdx_packet_t), 0,
+                    (struct sockaddr *)(&(node->source)), &slen);
+            if (rcv_size < 0)
+            {
+                /* Manage error */
+            }
+            else
+            {
+                /* Rise sync mutex for elaboration_thread to be able to get a node */
+                sem_post(sync_elab_net_mutex);
+            }
         }
     }
 }

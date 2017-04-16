@@ -23,7 +23,7 @@
      #include <libproc.h>
 #endif
 
-#include "../include/simplog.h"
+#include "simplog.h"
 
 // Used for printing from within the logger. Prints if debug level is SIMPLOG_DEBUG or higher
 #define SIMPLOG_LOGGER  4

@@ -3,7 +3,13 @@
 
 intdata_t intdata;
 
+void init_all()
+{
+
+}
+
 int main() {
+	init_all();
 
 	simplog.writeLog( SIMPLOG_INFO, "Starting..." );
 

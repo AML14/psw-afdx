@@ -2,6 +2,8 @@
 #define QUEUE_H_
 
 #include <netinet/in.h>
+#include <semaphore.h>
+#include <unistd.h>
 
 #include "network_protocol.h"
 
@@ -16,6 +18,11 @@ struct nqnode_s
     afdx_packet_t packet;
     time_t last_update;
 };
+
+/* Semaphores related to queue. To be initialized on an init function */
+extern sem_t *sync_elab_net_mutex; // 0
+extern sem_t *queue_mutex; // 1
+extern sem_t *nr_nodes_queue; // 0
 
 /* Returns the next node available for input in the queue or NULL
  * if queue is full */

@@ -1,12 +1,6 @@
-#include <unistd.h>
-
 #include "queue.h"
 #include "internal_data.h"
 
-void init_elab()
-{
-    /* Sync mutex initially set at 0 */
-}
 
 void *elaboration_thread(void *arg)
 {
@@ -16,6 +10,7 @@ void *elaboration_thread(void *arg)
 
     while (1) {
         /* Lower sync mutex */
+        sem_wait(sync_elab_net_mutex);
         node = next_nqnode_out();
         id_packet = node->packet.identifier;
         switch (id_packet) {
