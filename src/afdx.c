@@ -1,11 +1,16 @@
 #include "internal_data.h"
 #include "simplog.h"
+#include "globals.h"
 
 intdata_t intdata;
 
 void init_all()
 {
-
+	queue_mutex = sem_open("queue_mutex",O_CREAT,0600,1);
+	nr_nodes_queue = sem_open("nr_nodes_queue",O_CREAT,0600,0);
+	init_net();
+	init_elab();
+	init_app_man();
 }
 
 int main() {

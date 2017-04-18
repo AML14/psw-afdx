@@ -1,4 +1,5 @@
 #include "queue.h"
+#include "globals.h"
 
 /* IO pointers of the queue */
 static int in_ptr = 0;

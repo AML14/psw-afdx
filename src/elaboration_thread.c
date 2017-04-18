@@ -1,6 +1,10 @@
 #include "queue.h"
 #include "internal_data.h"
+#include "globals.h"
 
+void init_elab() {
+    sync_elab_net_mutex = sem_open("sync_elab_net_mutex",O_CREAT,0600,0);
+}
 
 void *elaboration_thread(void *arg)
 {
@@ -26,6 +30,7 @@ void *elaboration_thread(void *arg)
                 break;
             case AFDX_PACKET_TYPE_ENGINE:
                 id_engine = node->packet.payload.engine.engine_id;
+                intdata.engines[id_engine].last_update = node->last_update;
                 intdata.engines[id_engine].throttle = node->packet.payload.engine.throttle;
                 intdata.engines[id_engine].real_thrust = node->packet.payload.engine.real_thrust;
                 intdata.engines[id_engine].oil_temp = node->packet.payload.engine.oil_temp;
@@ -33,18 +38,23 @@ void *elaboration_thread(void *arg)
                 intdata.engines[id_engine].fuel_press = node->packet.payload.engine.fuel_press;
                 intdata.engines[id_engine].status = node->packet.payload.engine.flag_status;
                 /* Engine flags:
-                 *     - Reverse flag:        bit 0
-                 *     - Fire flag:           bit 1
-                 *     - Maintainance flag:   bit 2
+                 *     0: No flags
+                 *     1: R
+                 *     2: OF
+                 *     3: R+OF
+                 *     4: M
+                 *     5: R+M
+                 *     6: OF+M
+                 *     7: R+OF+M
                  */
                 intdata.engines[id_engine].engine_flags =
-                        node->packet.payload.engine.flag_reverse |
-                        node->packet.payload.engine.flag_fire << 1 |
-                        node->packet.payload.engine.flag_maintainance << 2;
+                        node->packet.payload.engine.flag_reverse*ENGINE_F_REVERSE+
+                        node->packet.payload.engine.flag_fire*ENGINE_F_ON_FIRE+
+                        node->packet.payload.engine.flag_maintainance*ENGINE_F_MAINT;
                 break;
             default:
                 break;
         }
-        dispose_last_nqnode(); /* Update out pointer */
+        dispose_last_nqnode(); // Update out pointer
     }
 }
