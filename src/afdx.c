@@ -6,8 +6,8 @@ intdata_t intdata;
 
 void init_all()
 {
-	queue_mutex = sem_open("queue_mutex",O_CREAT,0600,1);
-	nr_nodes_queue = sem_open("nr_nodes_queue",O_CREAT,0600,0);
+	queue_mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+	sem_init(nr_nodes_queue,0,0);
 	init_net();
 	init_elab();
 	init_app_man();

@@ -9,7 +9,7 @@
 static int sockfd; /* Socket in which we listen */
 
 void init_app_man() {
-    registering_mutex = sem_open("registering_mutex",O_CREAT,0600,1);
+    sem_init(registering_mutex,0,1);
 }
 
 void *application_manager(void *arg)

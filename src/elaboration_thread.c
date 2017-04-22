@@ -3,18 +3,20 @@
 #include "globals.h"
 
 void init_elab() {
-    sync_elab_net_mutex = sem_open("sync_elab_net_mutex",O_CREAT,0600,0);
+    sync_elab_net_mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+    wakeup_elab = (pthread_cond_t)PTHREAD_COND_INITIALIZER;
 }
 
 void *elaboration_thread(void *arg)
 {
-    nqnode *node = NULL;
+    nqnode_t *node = NULL;
     uint8_t id_engine;
     uint8_t id_packet;
 
     while (1) {
-        /* Lower sync mutex */
-        sem_wait(sync_elab_net_mutex);
+        /* Lock sync mutex */
+        /* Thread must block here until there are messages */
+        pthread_cond_wait(&wakeup_elab, &sync_elab_net_mutex);
         node = next_nqnode_out();
         id_packet = node->packet.identifier;
         switch (id_packet) {

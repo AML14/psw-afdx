@@ -2,6 +2,7 @@
 #include <sys/socket.h>
 
 #include "queue.h"
+#include "globals.h"
 
 static int net_sockfd;
 
@@ -22,10 +23,9 @@ void init_net(struct sockaddr_in server_addr)
 
 void *network_thread(void *arg)
 {
-    nqnode *node;
+    nqnode_t *node;
     ssize_t rcv_size;
     socklen_t slen;
-    /* Use sync mutex together with elaboration_thread */
 
     while(1)
     {
@@ -42,8 +42,10 @@ void *network_thread(void *arg)
             }
             else
             {
-                /* Rise sync mutex for elaboration_thread to be able to get a node */
-                sem_post(sync_elab_net_mutex);
+                /* Set reception time */
+                node->last_update = time(NULL);
+                /* Wake up elaboration_thread to be able to get a node */
+                pthread_cond_signal(&wakeup_elab);
             }
         }
     }

@@ -6,15 +6,15 @@ static int in_ptr = 0;
 static int out_ptr = 0;
 
 /* Fixed size circular queue */
-static nqnode nodes[SIZE_QUEUE];
+static nqnode_t nodes[SIZE_QUEUE];
 
-nqnode *next_nqnode_in()
+nqnode_t *next_nqnode_in()
 {
     int nptr;
-    nqnode *node;
+    nqnode_t *node;
 
     /* Mutex queue */
-    sem_wait(queue_mutex);
+    pthread_mutex_lock(&queue_mutex);
 
     nptr = (in_ptr + 1) % SIZE_QUEUE;
     if (nptr == out_ptr)
@@ -30,18 +30,18 @@ nqnode *next_nqnode_in()
     /* Raise semaphore count */
     sem_post(nr_nodes_queue);
     /* End mutex */
-    sem_post(queue_mutex);
+    pthread_mutex_unlock(&queue_mutex);
     return (node);
 }
 
-nqnode *next_nqnode_out()
+nqnode_t *next_nqnode_out()
 {
-    nqnode *node;
+    nqnode_t *node;
 
     /* Lower semaphore count (blocks until there is a node) */
     sem_wait(nr_nodes_queue);
     /* Mutex queue */
-    sem_wait(queue_mutex);
+    pthread_mutex_lock(&queue_mutex);
 
     if (out_ptr != in_ptr)
         node = &(nodes[out_ptr]);
@@ -49,7 +49,7 @@ nqnode *next_nqnode_out()
         /* This should never happen when using the semaphore */
         node = NULL;
     /* End mutex */
-    sem_post(queue_mutex);
+    pthread_mutex_unlock(&queue_mutex);
     return (node);
 }
 
@@ -59,10 +59,10 @@ void dispose_last_nqnode()
      * overwritten by an incoming packet before we are done with it */
 
     /* Mutex queue */
-    sem_wait(queue_mutex);
+    pthread_mutex_lock(&queue_mutex);
 
     if (out_ptr != in_ptr)
         out_ptr = (out_ptr +1) % SIZE_QUEUE;
     /* End mutex */
-    sem_post(queue_mutex);
+    pthread_mutex_unlock(&queue_mutex);
 }
