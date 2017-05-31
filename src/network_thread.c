@@ -6,7 +6,7 @@
 
 static int net_sockfd;
 
-void init_net(struct sockaddr_in server_addr)
+void init_net(struct sockaddr_in net_server_addr)
 {
     if((net_sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
@@ -14,7 +14,7 @@ void init_net(struct sockaddr_in server_addr)
     }
     else
     {
-        if (bind(net_sockfd, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0)
+        if (bind(net_sockfd, (struct sockaddr *) &net_server_addr, sizeof(net_server_addr)) < 0)
         {
             /* Manage error */
         }

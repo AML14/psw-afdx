@@ -36,7 +36,10 @@ typedef struct app_query_s {
 
 typedef struct app_msg_s {
     uint8_t msg_type; // Request, register or unregister
-    uint16_t ms_to_update; // Interval between updates. NULL if not register type
+    union
+    {
+        uint16_t ms_to_update; // Interval between updates. Not present if request type
+    };
     app_query_t query;
 } app_msg_t;
 

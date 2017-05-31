@@ -4,7 +4,7 @@
 
 reg_app_t *registered_applications;
 
-void register_query(int fd, app_query_t *query)
+void register_query(int fd, app_query_t *query, long interval)
 {
     reg_app_t *app;
     reg_query_node_t *node;
