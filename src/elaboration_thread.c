@@ -1,10 +1,17 @@
+#include "simplog.h"
+
 #include "queue.h"
 #include "internal_data.h"
 #include "globals.h"
 
+static pthread_mutex_t sync_elab_net_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_cond_t wakeup_elab = PTHREAD_COND_INITIALIZER;
+static pthread_t elab_thread;
+
+long start_elab_thread();
+
 void init_elab() {
-    sync_elab_net_mutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
-    wakeup_elab = (pthread_cond_t)PTHREAD_COND_INITIALIZER;
+    start_elab_thread();
 }
 
 void *elaboration_thread(void *arg)
@@ -16,6 +23,7 @@ void *elaboration_thread(void *arg)
     while (1) {
         /* Lock sync mutex */
         /* Thread must block here until there are messages */
+        simplog.writeLog(SIMPLOG_DEBUG,"Elaboration thread\n");
         pthread_cond_wait(&wakeup_elab, &sync_elab_net_mutex);
         node = next_nqnode_out();
         id_packet = node->packet.identifier;
@@ -59,4 +67,14 @@ void *elaboration_thread(void *arg)
         }
         dispose_last_nqnode(); // Update out pointer
     }
+}
+
+void wakeup_elaboration_thread()
+{
+    pthread_cond_signal(&wakeup_elab);
+}
+
+long start_elab_thread()
+{
+    return pthread_create(&elab_thread, NULL, elaboration_thread, NULL);
 }

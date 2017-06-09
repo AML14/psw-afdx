@@ -1,13 +1,20 @@
 #include <stdlib.h>
+#include "simplog.h"
 #include "application_manager.h"
+#include "scheduler.h"
 #include "globals.h"
 
 reg_app_t *registered_applications;
+static sem_t registering_mutex_val;
+sem_t *registering_mutex = &registering_mutex_val; // 1
+
+static void serve_scheduler_query(void *data);
 
 void register_query(int fd, app_query_t *query, long interval)
 {
     reg_app_t *app;
     reg_query_node_t *node;
+    void *handler;
 
     /* Mutex registering */
     sem_wait(registering_mutex);
@@ -40,8 +47,12 @@ void register_query(int fd, app_query_t *query, long interval)
         /* No memory */
         /* Manage error */
     }
+    simplog.writeLog(SIMPLOG_DEBUG,"Dentro de register query: %d\n", query->data_id);
     node->query = *query;
     node->next = app->queries;
+    node->app = app;
+    handler = schedule(serve_scheduler_query, node, interval);
+    node->handler = handler;
     app->queries = node;
     /* End mutex registering */
     sem_post(registering_mutex);
@@ -52,6 +63,7 @@ void unregister_query(int fd, uint32_t req_id)
     reg_app_t *app;
     reg_query_node_t *node, *prev;
 
+    simplog.writeLog(SIMPLOG_DEBUG,"Start unregister_query\n");
     /* Mutex registering */
     sem_wait(registering_mutex);
 
@@ -81,6 +93,7 @@ void unregister_query(int fd, uint32_t req_id)
                 /* Was the first */
                 app->queries = node->next;
             }
+            unschedule(node->handler);
             free((void *)node);
             break;
         }
@@ -93,6 +106,7 @@ void unregister_query(int fd, uint32_t req_id)
     }
     /* End mutex registering */
     sem_post(registering_mutex);
+    simplog.writeLog(SIMPLOG_DEBUG,"Query desregistrada\n");
 }
 
 void unregister_application(int fd)
@@ -100,11 +114,13 @@ void unregister_application(int fd)
     reg_app_t *app, *prev;
     reg_query_node_t *node, *next;
 
+    simplog.writeLog(SIMPLOG_DEBUG,"Start unregister_application\n");
     /* Mutex registering */
     sem_wait(registering_mutex);
 
     app = registered_applications;
     prev = NULL;
+    simplog.writeLog(SIMPLOG_DEBUG,"unregister_application: before while\n");
     while (app)
     {
         if(app->fd == fd)
@@ -124,6 +140,7 @@ void unregister_application(int fd)
         prev = app;
         app = app->next;
     }
+    simplog.writeLog(SIMPLOG_DEBUG,"unregister_application: after while\n");
     if (app == NULL)
     {
         /* End mutex registering */
@@ -131,12 +148,26 @@ void unregister_application(int fd)
         return;
     }
     node = app->queries;
+    simplog.writeLog(SIMPLOG_DEBUG,"unregister_application: antes de recorrer queries\n");
     while (node)
     {
+        unschedule(node->handler);
         next = node->next;
         free((void *)node);
+        node = next;
     }
+    simplog.writeLog(SIMPLOG_DEBUG,"unregister_app: después de recorrer queries\n");
     free((void *)app);
     /* End mutex registering */
     sem_post(registering_mutex);
+    simplog.writeLog(SIMPLOG_DEBUG,"App desregistrada\n");
+}
+
+/* This is the function passed to the scheduler */
+static void serve_scheduler_query(void *data)
+{
+    reg_query_node_t *node = (reg_query_node_t *)data;
+    int fd = node->app->fd;
+
+    serve_query(fd, &(node->query));
 }

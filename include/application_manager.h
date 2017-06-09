@@ -8,10 +8,13 @@ typedef struct reg_query_node_s reg_query_node_t;
 
 struct reg_query_node_s {
     app_query_t query;
+    reg_app_t *app;
+    void *handler;
     reg_query_node_t *next;
 };
 
-struct reg_app_s {
+struct reg_app_s
+{
     int fd;
     reg_query_node_t *queries;
     reg_app_t *next;

@@ -1,0 +1,682 @@
+[2017-06-08 21:41:02]	LOG   : Log file 'debug_afdx.log' cleared
+[2017-06-08 21:41:02]	LOG   : Debug level set to 2
+[2017-06-08 21:41:02]	DEBUG : Hola
+
+[2017-06-08 21:41:02]	INFO  : Starting...
+[2017-06-08 21:41:02]	DEBUG : Creating the internal data structure...
+[2017-06-08 21:41:02]	DEBUG : 0.0.0.0
+
+[2017-06-08 21:41:02]	DEBUG : 59000
+
+[2017-06-08 21:41:02]	DEBUG : 0.0.0.0
+
+[2017-06-08 21:41:02]	DEBUG : 59000
+
+[2017-06-08 21:41:02]	DEBUG : Sin error al establecer opciones
+
+[2017-06-08 21:41:02]	DEBUG : Network thread: sin error al crear socket
+
+[2017-06-08 21:41:02]	DEBUG : Network thread: sin error al hacer bind
+
+[2017-06-08 21:41:02]	DEBUG : Network thread
+
+[2017-06-08 21:41:02]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:02]	DEBUG : In:0, out:0
+
+[2017-06-08 21:41:02]	DEBUG : Sin error al crear el socket
+
+[2017-06-08 21:41:02]	DEBUG : Current ptr: 1
+
+[2017-06-08 21:41:02]	DEBUG : Sin error al hacer bind al path
+
+[2017-06-08 21:41:02]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:02]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:02]	DEBUG : Scheduler thread
+
+[2017-06-08 21:41:02]	DEBUG : Hola 1
+
+[2017-06-08 21:41:02]	DEBUG : Antes de select
+
+[2017-06-08 21:41:09]	DEBUG : Después de select
+
+[2017-06-08 21:41:09]	DEBUG : Antes de accept
+
+[2017-06-08 21:41:09]	DEBUG : No error accepting connection
+
+[2017-06-08 21:41:09]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:09]	DEBUG : Antes de select
+
+[2017-06-08 21:41:09]	DEBUG : Después de select
+
+[2017-06-08 21:41:09]	DEBUG : 1
+
+[2017-06-08 21:41:09]	DEBUG : 12345678
+
+[2017-06-08 21:41:09]	DEBUG : 11
+
+[2017-06-08 21:41:09]	DEBUG : Dentro del switch-case 11
+
+[2017-06-08 21:41:09]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:09]	DEBUG : Antes de select
+
+[2017-06-08 21:41:09]	DEBUG : Después de select
+
+[2017-06-08 21:41:09]	DEBUG : Application unregistered
+
+[2017-06-08 21:41:09]	DEBUG : Start unregister_application
+
+[2017-06-08 21:41:09]	DEBUG : unregister_application: before while
+
+[2017-06-08 21:41:09]	DEBUG : unregister_application: after while
+
+[2017-06-08 21:41:09]	DEBUG : Socket closed
+
+[2017-06-08 21:41:09]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:09]	DEBUG : Antes de select
+
+[2017-06-08 21:41:09]	DEBUG : Después de select
+
+[2017-06-08 21:41:09]	DEBUG : Antes de accept
+
+[2017-06-08 21:41:09]	DEBUG : No error accepting connection
+
+[2017-06-08 21:41:09]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:09]	DEBUG : Antes de select
+
+[2017-06-08 21:41:09]	DEBUG : Después de select
+
+[2017-06-08 21:41:09]	DEBUG : 1
+
+[2017-06-08 21:41:09]	DEBUG : 12345678
+
+[2017-06-08 21:41:09]	DEBUG : 11
+
+[2017-06-08 21:41:09]	DEBUG : Dentro del switch-case 11
+
+[2017-06-08 21:41:09]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:09]	DEBUG : Antes de select
+
+[2017-06-08 21:41:09]	DEBUG : Después de select
+
+[2017-06-08 21:41:09]	DEBUG : Application unregistered
+
+[2017-06-08 21:41:09]	DEBUG : Start unregister_application
+
+[2017-06-08 21:41:09]	DEBUG : unregister_application: before while
+
+[2017-06-08 21:41:09]	DEBUG : unregister_application: after while
+
+[2017-06-08 21:41:09]	DEBUG : Socket closed
+
+[2017-06-08 21:41:09]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:09]	DEBUG : Antes de select
+
+[2017-06-08 21:41:10]	DEBUG : Después de select
+
+[2017-06-08 21:41:10]	DEBUG : Antes de accept
+
+[2017-06-08 21:41:10]	DEBUG : No error accepting connection
+
+[2017-06-08 21:41:10]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:10]	DEBUG : Antes de select
+
+[2017-06-08 21:41:10]	DEBUG : Después de select
+
+[2017-06-08 21:41:10]	DEBUG : 1
+
+[2017-06-08 21:41:10]	DEBUG : 12345678
+
+[2017-06-08 21:41:10]	DEBUG : 11
+
+[2017-06-08 21:41:10]	DEBUG : Dentro del switch-case 11
+
+[2017-06-08 21:41:10]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:10]	DEBUG : Antes de select
+
+[2017-06-08 21:41:10]	DEBUG : Después de select
+
+[2017-06-08 21:41:10]	DEBUG : Application unregistered
+
+[2017-06-08 21:41:10]	DEBUG : Start unregister_application
+
+[2017-06-08 21:41:10]	DEBUG : unregister_application: before while
+
+[2017-06-08 21:41:10]	DEBUG : unregister_application: after while
+
+[2017-06-08 21:41:10]	DEBUG : Socket closed
+
+[2017-06-08 21:41:10]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:10]	DEBUG : Antes de select
+
+[2017-06-08 21:41:10]	DEBUG : Después de select
+
+[2017-06-08 21:41:10]	DEBUG : Antes de accept
+
+[2017-06-08 21:41:10]	DEBUG : No error accepting connection
+
+[2017-06-08 21:41:10]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:10]	DEBUG : Antes de select
+
+[2017-06-08 21:41:10]	DEBUG : Después de select
+
+[2017-06-08 21:41:10]	DEBUG : 1
+
+[2017-06-08 21:41:10]	DEBUG : 12345678
+
+[2017-06-08 21:41:10]	DEBUG : 11
+
+[2017-06-08 21:41:10]	DEBUG : Dentro del switch-case 11
+
+[2017-06-08 21:41:10]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:10]	DEBUG : Antes de select
+
+[2017-06-08 21:41:10]	DEBUG : Después de select
+
+[2017-06-08 21:41:10]	DEBUG : Application unregistered
+
+[2017-06-08 21:41:10]	DEBUG : Start unregister_application
+
+[2017-06-08 21:41:10]	DEBUG : unregister_application: before while
+
+[2017-06-08 21:41:10]	DEBUG : unregister_application: after while
+
+[2017-06-08 21:41:10]	DEBUG : Socket closed
+
+[2017-06-08 21:41:10]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:10]	DEBUG : Antes de select
+
+[2017-06-08 21:41:11]	DEBUG : Después de select
+
+[2017-06-08 21:41:11]	DEBUG : Antes de accept
+
+[2017-06-08 21:41:11]	DEBUG : No error accepting connection
+
+[2017-06-08 21:41:11]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:11]	DEBUG : Antes de select
+
+[2017-06-08 21:41:11]	DEBUG : Después de select
+
+[2017-06-08 21:41:11]	DEBUG : 1
+
+[2017-06-08 21:41:11]	DEBUG : 12345678
+
+[2017-06-08 21:41:11]	DEBUG : 11
+
+[2017-06-08 21:41:11]	DEBUG : Dentro del switch-case 11
+
+[2017-06-08 21:41:11]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:11]	DEBUG : Antes de select
+
+[2017-06-08 21:41:11]	DEBUG : Después de select
+
+[2017-06-08 21:41:11]	DEBUG : Application unregistered
+
+[2017-06-08 21:41:11]	DEBUG : Start unregister_application
+
+[2017-06-08 21:41:11]	DEBUG : unregister_application: before while
+
+[2017-06-08 21:41:11]	DEBUG : unregister_application: after while
+
+[2017-06-08 21:41:11]	DEBUG : Socket closed
+
+[2017-06-08 21:41:11]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:11]	DEBUG : Antes de select
+
+[2017-06-08 21:41:12]	DEBUG : Después de select
+
+[2017-06-08 21:41:12]	DEBUG : Antes de accept
+
+[2017-06-08 21:41:12]	DEBUG : No error accepting connection
+
+[2017-06-08 21:41:12]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:12]	DEBUG : Antes de select
+
+[2017-06-08 21:41:12]	DEBUG : Después de select
+
+[2017-06-08 21:41:12]	DEBUG : 1
+
+[2017-06-08 21:41:12]	DEBUG : 12345678
+
+[2017-06-08 21:41:12]	DEBUG : 11
+
+[2017-06-08 21:41:12]	DEBUG : Dentro del switch-case 11
+
+[2017-06-08 21:41:12]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:12]	DEBUG : Antes de select
+
+[2017-06-08 21:41:12]	DEBUG : Después de select
+
+[2017-06-08 21:41:12]	DEBUG : Application unregistered
+
+[2017-06-08 21:41:12]	DEBUG : Start unregister_application
+
+[2017-06-08 21:41:12]	DEBUG : unregister_application: before while
+
+[2017-06-08 21:41:12]	DEBUG : unregister_application: after while
+
+[2017-06-08 21:41:12]	DEBUG : Socket closed
+
+[2017-06-08 21:41:12]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:12]	DEBUG : Antes de select
+
+[2017-06-08 21:41:15]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:15]	DEBUG : 2017-06-08 21:41:15
+
+[2017-06-08 21:41:15]	DEBUG : Network thread
+
+[2017-06-08 21:41:15]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:15]	DEBUG : In:1, out:1
+
+[2017-06-08 21:41:15]	DEBUG : Current ptr: 2
+
+[2017-06-08 21:41:15]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:16]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:16]	DEBUG : 2017-06-08 21:41:16
+
+[2017-06-08 21:41:16]	DEBUG : Network thread
+
+[2017-06-08 21:41:16]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:16]	DEBUG : In:2, out:2
+
+[2017-06-08 21:41:16]	DEBUG : Current ptr: 3
+
+[2017-06-08 21:41:16]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:16]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:16]	DEBUG : 2017-06-08 21:41:16
+
+[2017-06-08 21:41:16]	DEBUG : Network thread
+
+[2017-06-08 21:41:16]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:16]	DEBUG : In:3, out:3
+
+[2017-06-08 21:41:16]	DEBUG : Current ptr: 4
+
+[2017-06-08 21:41:16]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:16]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:16]	DEBUG : 2017-06-08 21:41:16
+
+[2017-06-08 21:41:16]	DEBUG : Network thread
+
+[2017-06-08 21:41:16]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:16]	DEBUG : In:4, out:4
+
+[2017-06-08 21:41:16]	DEBUG : Current ptr: 5
+
+[2017-06-08 21:41:16]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:16]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:16]	DEBUG : 2017-06-08 21:41:16
+
+[2017-06-08 21:41:16]	DEBUG : Network thread
+
+[2017-06-08 21:41:16]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:16]	DEBUG : In:5, out:5
+
+[2017-06-08 21:41:16]	DEBUG : Current ptr: 6
+
+[2017-06-08 21:41:16]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:17]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:17]	DEBUG : 2017-06-08 21:41:17
+
+[2017-06-08 21:41:17]	DEBUG : Network thread
+
+[2017-06-08 21:41:17]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:17]	DEBUG : In:6, out:6
+
+[2017-06-08 21:41:17]	DEBUG : Current ptr: 7
+
+[2017-06-08 21:41:17]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:17]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:17]	DEBUG : 2017-06-08 21:41:17
+
+[2017-06-08 21:41:17]	DEBUG : Network thread
+
+[2017-06-08 21:41:17]	DEBUG : In:7, out:6
+
+[2017-06-08 21:41:17]	DEBUG : Current ptr: 8
+
+[2017-06-08 21:41:17]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:17]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:18]	DEBUG : Después de select
+
+[2017-06-08 21:41:18]	DEBUG : Antes de accept
+
+[2017-06-08 21:41:18]	DEBUG : No error accepting connection
+
+[2017-06-08 21:41:18]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:18]	DEBUG : Antes de select
+
+[2017-06-08 21:41:18]	DEBUG : Después de select
+
+[2017-06-08 21:41:18]	DEBUG : 1
+
+[2017-06-08 21:41:18]	DEBUG : 12345678
+
+[2017-06-08 21:41:18]	DEBUG : 11
+
+[2017-06-08 21:41:18]	DEBUG : Dentro del switch-case 11
+
+[2017-06-08 21:41:18]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:18]	DEBUG : Antes de select
+
+[2017-06-08 21:41:18]	DEBUG : Después de select
+
+[2017-06-08 21:41:18]	DEBUG : Application unregistered
+
+[2017-06-08 21:41:18]	DEBUG : Start unregister_application
+
+[2017-06-08 21:41:18]	DEBUG : unregister_application: before while
+
+[2017-06-08 21:41:18]	DEBUG : unregister_application: after while
+
+[2017-06-08 21:41:18]	DEBUG : Socket closed
+
+[2017-06-08 21:41:18]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:18]	DEBUG : Antes de select
+
+[2017-06-08 21:41:19]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:19]	DEBUG : 2017-06-08 21:41:19
+
+[2017-06-08 21:41:19]	DEBUG : Network thread
+
+[2017-06-08 21:41:19]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:19]	DEBUG : In:8, out:8
+
+[2017-06-08 21:41:19]	DEBUG : Current ptr: 9
+
+[2017-06-08 21:41:19]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:19]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:19]	DEBUG : 2017-06-08 21:41:19
+
+[2017-06-08 21:41:19]	DEBUG : Network thread
+
+[2017-06-08 21:41:19]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:19]	DEBUG : In:9, out:9
+
+[2017-06-08 21:41:19]	DEBUG : Current ptr: 10
+
+[2017-06-08 21:41:19]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:20]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:20]	DEBUG : 2017-06-08 21:41:20
+
+[2017-06-08 21:41:20]	DEBUG : Network thread
+
+[2017-06-08 21:41:20]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:20]	DEBUG : In:10, out:10
+
+[2017-06-08 21:41:20]	DEBUG : Current ptr: 11
+
+[2017-06-08 21:41:20]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:20]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:20]	DEBUG : 2017-06-08 21:41:20
+
+[2017-06-08 21:41:20]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:20]	DEBUG : Network thread
+
+[2017-06-08 21:41:20]	DEBUG : In:11, out:11
+
+[2017-06-08 21:41:20]	DEBUG : Current ptr: 12
+
+[2017-06-08 21:41:20]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:20]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:20]	DEBUG : 2017-06-08 21:41:20
+
+[2017-06-08 21:41:20]	DEBUG : Network thread
+
+[2017-06-08 21:41:20]	DEBUG : In:12, out:11
+
+[2017-06-08 21:41:20]	DEBUG : Current ptr: 13
+
+[2017-06-08 21:41:20]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:20]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:20]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:20]	DEBUG : 2017-06-08 21:41:20
+
+[2017-06-08 21:41:20]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:20]	DEBUG : Network thread
+
+[2017-06-08 21:41:20]	DEBUG : In:13, out:13
+
+[2017-06-08 21:41:20]	DEBUG : Current ptr: 14
+
+[2017-06-08 21:41:20]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:22]	DEBUG : Después de select
+
+[2017-06-08 21:41:22]	DEBUG : Antes de accept
+
+[2017-06-08 21:41:22]	DEBUG : No error accepting connection
+
+[2017-06-08 21:41:22]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:22]	DEBUG : Antes de select
+
+[2017-06-08 21:41:22]	DEBUG : Después de select
+
+[2017-06-08 21:41:22]	DEBUG : 1
+
+[2017-06-08 21:41:22]	DEBUG : 12345678
+
+[2017-06-08 21:41:22]	DEBUG : 11
+
+[2017-06-08 21:41:22]	DEBUG : Dentro del switch-case 11
+
+[2017-06-08 21:41:22]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:22]	DEBUG : Antes de select
+
+[2017-06-08 21:41:22]	DEBUG : Después de select
+
+[2017-06-08 21:41:22]	DEBUG : Application unregistered
+
+[2017-06-08 21:41:22]	DEBUG : Start unregister_application
+
+[2017-06-08 21:41:22]	DEBUG : unregister_application: before while
+
+[2017-06-08 21:41:22]	DEBUG : unregister_application: after while
+
+[2017-06-08 21:41:22]	DEBUG : Socket closed
+
+[2017-06-08 21:41:22]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:22]	DEBUG : Antes de select
+
+[2017-06-08 21:41:23]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:23]	DEBUG : 2017-06-08 21:41:23
+
+[2017-06-08 21:41:23]	DEBUG : Network thread
+
+[2017-06-08 21:41:23]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:23]	DEBUG : In:14, out:14
+
+[2017-06-08 21:41:23]	DEBUG : Current ptr: 15
+
+[2017-06-08 21:41:23]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:23]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:23]	DEBUG : 2017-06-08 21:41:23
+
+[2017-06-08 21:41:23]	DEBUG : Network thread
+
+[2017-06-08 21:41:23]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:23]	DEBUG : In:15, out:15
+
+[2017-06-08 21:41:23]	DEBUG : Current ptr: 16
+
+[2017-06-08 21:41:23]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:23]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:23]	DEBUG : 2017-06-08 21:41:23
+
+[2017-06-08 21:41:23]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:23]	DEBUG : Network thread
+
+[2017-06-08 21:41:23]	DEBUG : In:16, out:16
+
+[2017-06-08 21:41:23]	DEBUG : Current ptr: 17
+
+[2017-06-08 21:41:23]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:23]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:23]	DEBUG : 2017-06-08 21:41:23
+
+[2017-06-08 21:41:23]	DEBUG : Network thread
+
+[2017-06-08 21:41:23]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:23]	DEBUG : In:17, out:17
+
+[2017-06-08 21:41:23]	DEBUG : Current ptr: 18
+
+[2017-06-08 21:41:23]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:26]	DEBUG : Después de select
+
+[2017-06-08 21:41:26]	DEBUG : Antes de accept
+
+[2017-06-08 21:41:26]	DEBUG : No error accepting connection
+
+[2017-06-08 21:41:26]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:26]	DEBUG : Antes de select
+
+[2017-06-08 21:41:26]	DEBUG : Después de select
+
+[2017-06-08 21:41:26]	DEBUG : 1
+
+[2017-06-08 21:41:26]	DEBUG : 12345678
+
+[2017-06-08 21:41:26]	DEBUG : 11
+
+[2017-06-08 21:41:26]	DEBUG : Dentro del switch-case 11
+
+[2017-06-08 21:41:26]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:26]	DEBUG : Antes de select
+
+[2017-06-08 21:41:26]	DEBUG : Después de select
+
+[2017-06-08 21:41:26]	DEBUG : Application unregistered
+
+[2017-06-08 21:41:26]	DEBUG : Start unregister_application
+
+[2017-06-08 21:41:26]	DEBUG : unregister_application: before while
+
+[2017-06-08 21:41:26]	DEBUG : unregister_application: after while
+
+[2017-06-08 21:41:26]	DEBUG : Socket closed
+
+[2017-06-08 21:41:26]	DEBUG : Application manager thread
+
+[2017-06-08 21:41:26]	DEBUG : Antes de select
+
+[2017-06-08 21:41:51]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:51]	DEBUG : 2017-06-08 21:41:51
+
+[2017-06-08 21:41:51]	DEBUG : Network thread
+
+[2017-06-08 21:41:51]	DEBUG : In:18, out:17
+
+[2017-06-08 21:41:51]	DEBUG : Current ptr: 19
+
+[2017-06-08 21:41:51]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:51]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:51]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:51]	DEBUG : 2017-06-08 21:41:51
+
+[2017-06-08 21:41:51]	DEBUG : Network thread
+
+[2017-06-08 21:41:51]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:51]	DEBUG : In:19, out:19
+
+[2017-06-08 21:41:51]	DEBUG : Current ptr: 20
+
+[2017-06-08 21:41:51]	DEBUG : Network thread: antes de recibir
+
+[2017-06-08 21:41:51]	DEBUG : Network thread: después de recibir
+
+[2017-06-08 21:41:51]	DEBUG : 2017-06-08 21:41:51
+
+[2017-06-08 21:41:51]	DEBUG : Network thread
+
+[2017-06-08 21:41:51]	DEBUG : Elaboration thread
+
+[2017-06-08 21:41:51]	DEBUG : In:20, out:20
+
+[2017-06-08 21:41:51]	DEBUG : Current ptr: 21
+
+[2017-06-08 21:41:51]	DEBUG : Network thread: antes de recibir
+

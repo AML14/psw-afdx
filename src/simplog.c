@@ -164,7 +164,7 @@ void writeLog( int loglvl, const char* str, ... ) {
         } else if( loglvl == SIMPLOG_DEBUG && dbgLevel >= SIMPLOG_DEBUG ) {
             outColor = COL_DEBUG;
             sprintf( msg, "%s\tDEBUG : ", date );      // 2: Debug
-        } else if( loglvl == SIMPLOG_VERBOSE && dbgLevel >= SIMPLOG_VERBOSE ) {
+        } else if( loglvl == SIMPLOG_DEBUG && dbgLevel >= SIMPLOG_DEBUG ) {
             outColor = COL_VERBOSE;
             sprintf( msg, "%s\tDEBUG : ", date );      // 3: Verbose
         } else if( loglvl == SIMPLOG_LOGGER && dbgLevel >= SIMPLOG_DEBUG ) {
@@ -244,6 +244,8 @@ void writeStackTrace() {
     // used to know if pretty backtrace was returned
     bool freePrettyBacktrace = true;
 
+    int i;
+
     // string descriptions of each backtrace address
     char** backtrace_strings = getPrettyBacktrace( backtrace_addresses, backtrace_size );
     if( backtrace_strings == NULL ) {
@@ -273,7 +275,7 @@ void writeStackTrace() {
     // intermittent offset during message construction
     int offset = initialSize;
     // contstructing the message. starting at index 1 to omit this call
-    for( int i = 1; i < backtrace_size; i++ ) {
+    for(i = 1; i < backtrace_size; i++ ) {
         // length of the current string
         int string_length = strlen( backtrace_strings[i] );
 
@@ -319,7 +321,7 @@ void writeStackTrace() {
 
     // free backtrace strings
     if( freePrettyBacktrace ) {
-        for( int i = 0; i < backtrace_size; i++ ) {
+        for( i = 0; i < backtrace_size; i++ ) {
             free( backtrace_strings[i] );
         }
     }
@@ -340,7 +342,7 @@ void writeStackTrace() {
 */
 void setLogDebugLevel( int level ) {
     // Check if the provided debug level is valid, else print error message
-    if( level >= SIMPLOG_INFO && level <= SIMPLOG_VERBOSE ) {
+    if( level >= SIMPLOG_INFO && level <= SIMPLOG_DEBUG ) {
          dbgLevel = level;
          writeLog( SIMPLOG_LOGGER, "Debug level set to %d", level );
     } else {
@@ -493,11 +495,12 @@ void loadConfig( const char* config ) {
     int startL  = 0;
     int splitL  = 0;
     int endL    = 0;
+    int i;
     // Buffers to hold variable and value for each line
     char var[255];
     char val[255];
     // Parse the config file
-    for( int i = 0; i < strlen( settingsBuffer ); i++ ) {
+    for( i = 0; i < strlen( settingsBuffer ); i++ ) {
         if( settingsBuffer[i] == '=' ) {
             // Save the index to split the current line on
             splitL = i + 1;
@@ -590,7 +593,8 @@ static char* getDateString() {
 static char** getPrettyBacktrace( void* addresses[], int array_size ) {
     // Used to return the strings generated from the addresses
     char** backtrace_strings = (char**)malloc( sizeof( char* ) * array_size );
-    for( int i = 0; i < array_size; i ++ ) {
+    int i;
+    for( i = 0; i < array_size; i ++ ) {
         backtrace_strings[i] = (char*)malloc( sizeof( char ) * 255 );
     }
 
@@ -640,7 +644,7 @@ static char** getPrettyBacktrace( void* addresses[], int array_size ) {
 
     // If an error occured, exit now
     if( error ) {
-        for( int i = 0; i < array_size; i ++ ) {
+        for( i = 0; i < array_size; i ++ ) {
             free( backtrace_strings[i] );
         }
         free( backtrace_strings );
@@ -651,7 +655,7 @@ static char** getPrettyBacktrace( void* addresses[], int array_size ) {
     bool address_evaluation_successful = false;
 
     // Evaluate all addresses
-    for( int i = 0; i < array_size; i++ ) {
+    for( i = 0; i < array_size; i++ ) {
         // Compose the complete command to execute
         sprintf( command_string, "%s \"%s\" %X 2>/dev/null", command, exe_path, (unsigned int)(uintptr_t)addresses[i] );
 
@@ -661,7 +665,7 @@ static char** getPrettyBacktrace( void* addresses[], int array_size ) {
         // Error checking for command
         if( line == NULL ) {
             writeLog( SIMPLOG_LOGGER, "Failed to execute command: '%s'. Defaulting to standard backtrace.", command );
-            for( int i = 0; i < array_size; i ++ ) {
+            for( i = 0; i < array_size; i ++ ) {
                 free( backtrace_strings[i] );
             }
             free( backtrace_strings );
@@ -671,7 +675,7 @@ static char** getPrettyBacktrace( void* addresses[], int array_size ) {
         // Read the output into the return string
         if( fgets( backtrace_strings[i] , 255, line ) == NULL ) {
             writeLog( SIMPLOG_LOGGER, "Failed to get pretty backtrace strings. Defaulting to standard backtrace." );
-            for( int i = 0; i < array_size; i ++ ) {
+            for( i = 0; i < array_size; i ++ ) {
                 free( backtrace_strings[i] );
             }
             free( backtrace_strings );
@@ -693,7 +697,7 @@ static char** getPrettyBacktrace( void* addresses[], int array_size ) {
     // If no addresses were evaluated successfully, we fall back on the standard backtrace
     if( !address_evaluation_successful ) {
         writeLog( SIMPLOG_LOGGER, "Command '%s' failed to evaluate addresses. Defaulting to standard backtrace.", command );
-        for( int i = 0; i < array_size; i ++ ) {
+        for( i = 0; i < array_size; i ++ ) {
             free( backtrace_strings[i] );
         }
         free( backtrace_strings );
@@ -717,6 +721,7 @@ static void wrapLines( char* msg, int msgSize ) {
     memset( indentedLineSpacing, ' ', 32 );
     indentedLineSpacing[30] = '\t';
     indentedLineSpacing[31] = 0;
+    int i;
 
     // Temp buffer to hold the newly constructed message
     char tempBuf[msgSize];
@@ -729,7 +734,7 @@ static void wrapLines( char* msg, int msgSize ) {
     strncpy( tempBuf, msg, lineFeedSize );
 
     // Iterate through the message to wrap all lines
-    for( int i = lineFeedSize; i < strlen( msg ); i += lineFeedSize ) {
+    for( i = lineFeedSize; i < strlen( msg ); i += lineFeedSize ) {
         // Check if the current line (including whitespace) is over 80 characters
         if( strlen( msg + i ) + strlen( indentedLineSpacing ) > 80 ) {
             // Get the position of the last space in the line

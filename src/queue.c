@@ -1,3 +1,6 @@
+#include <pthread.h>
+#include "simplog.h"
+
 #include "queue.h"
 #include "globals.h"
 
@@ -7,16 +10,21 @@ static int out_ptr = 0;
 
 /* Fixed size circular queue */
 static nqnode_t nodes[SIZE_QUEUE];
+static pthread_mutex_t queue_mutex = PTHREAD_MUTEX_INITIALIZER; // 1
+static sem_t nodes_queue_sem;
+sem_t *nr_nodes_queue = &nodes_queue_sem; // 0
 
 nqnode_t *next_nqnode_in()
 {
     int nptr;
     nqnode_t *node;
 
+    simplog.writeLog(SIMPLOG_DEBUG,"In:%d, out:%d\n", in_ptr, out_ptr);
     /* Mutex queue */
     pthread_mutex_lock(&queue_mutex);
 
     nptr = (in_ptr + 1) % SIZE_QUEUE;
+    simplog.writeLog(SIMPLOG_DEBUG,"Current ptr: %d\n", nptr);
     if (nptr == out_ptr)
     {
         /* Queue is full */
@@ -65,4 +73,9 @@ void dispose_last_nqnode()
         out_ptr = (out_ptr +1) % SIZE_QUEUE;
     /* End mutex */
     pthread_mutex_unlock(&queue_mutex);
+}
+
+void init_queue()
+{
+	sem_init(nr_nodes_queue,0,0);
 }

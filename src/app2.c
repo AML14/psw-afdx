@@ -45,8 +45,9 @@ int main() {
             printf("Sin error al conectarse\n");
             /* This is a test. Fill message with example data */
             message.msg_type = AFDX_MSG_TYPE_REQUEST;
-            message.query.req_id = 12345678;
-            message.query.data_id = SPEEDS_AOA;
+            message.query.req_id = 23456789;
+            message.query.engine_id = 2;
+            message.query.data_id = ENGINE_THROTTLE;
 
             data_sent = write(src_sock, &message, sizeof(message));
             if (data_sent < 0)
@@ -63,7 +64,7 @@ int main() {
             else
             {
                 /* Process message */
-                printf("%d\n", reply.i16);
+                printf("%d\n", reply.u8);
             }
         }
 

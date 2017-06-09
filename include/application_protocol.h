@@ -31,7 +31,10 @@ typedef struct app_query_s {
     {
         uint8_t engine_id; // Optional field
     };
-    data_id_t data_id; // Specific data requested
+    union
+    {
+        data_id_t data_id; // Specific data requested
+    };
 } app_query_t;
 
 typedef struct app_msg_s {
@@ -48,7 +51,13 @@ typedef struct app_reply_s {
     union
     {
         uint8_t u8;
+    };
+    union
+    {
         int16_t i16;
+    };
+    union
+    {
         int32_t i32;
     };
 } app_reply_t;
