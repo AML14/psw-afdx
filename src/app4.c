@@ -4,6 +4,7 @@
 #include <sys/un.h>
 #include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "network_protocol.h"
 #include "application_protocol.h"
@@ -22,29 +23,26 @@ int main() {
 
     int i;
 
-    printf("Hola\n");
-
     if ((src_sock = socket(AF_UNIX, SOCK_STREAM, 0)) < 0)
     {
-        /* Manage error */
-        printf("Socket error\n");
+        perror("Socket error");
+        exit(1);
     }
     else
     {
-        printf("Sin error de socket\n");
+        printf("No socket error\n");
         memset(&serv_addr, 0, sizeof(serv_addr));
         serv_addr.sun_family = AF_UNIX;
         strcpy(serv_addr.sun_path, SOCKET_PATH);
 
         if (connect(src_sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0)
         {
-            /* Manage error */
-            printf("Error al conectarse\n");
-            printf("%s\n", strerror(errno));
+            perror("Error in connect");
+            exit(1);
         }
         else
         {
-            printf("Sin error al conectarse\n");
+            printf("No error connecting\n");
             /* This is a test. Fill message with example data */
             message.msg_type = AFDX_MSG_TYPE_REGISTER;
             message.ms_to_update = 300;
@@ -54,8 +52,8 @@ int main() {
             data_sent = write(src_sock, &message, sizeof(message));
             if (data_sent < 0)
             {
-                printf("Error al enviar mensaje de registro\n");
-                /* Manage error */
+                perror("Error sending data");
+                exit(1);
             }
 
             usleep(1250000);
@@ -68,15 +66,16 @@ int main() {
             data_sent = write(src_sock, &message, sizeof(message));
             if (data_sent < 0)
             {
-                printf("Error al enviar mensaje de registro\n");
-                /* Manage error */
+                perror("Error sending data");
+                exit(1);
             }
 
             for (i=0; i<1000; i++)
             {
                 data_recvd = read(src_sock, &reply, sizeof(reply));
                 if (data_recvd < 0) {
-                    /* Manage error */
+                    perror("Error reading data");
+                    exit(1);
                 }
                 else {
                     /* Process message */
@@ -94,8 +93,8 @@ int main() {
             data_sent = write(src_sock, &message, sizeof(message));
             if (data_sent < 0)
             {
-                /* Manage error */
-                printf("Error al enviar mensaje de desregistro\n");
+                perror("Error sending data");
+                exit(1);
             }
 
             message.query.req_id = 987654320; // Same request id
@@ -103,14 +102,15 @@ int main() {
             data_sent = write(src_sock, &message, sizeof(message));
             if (data_sent < 0)
             {
-                /* Manage error */
-                printf("Error al enviar mensaje de desregistro\n");
+                perror("Error sending data");
+                exit(1);
             }
         }
 
         if (close(src_sock) < 0)
         {
-            /* Manage error */
+            perror("Error closing socket");
+            exit(1);
         }
     }
     return 0;

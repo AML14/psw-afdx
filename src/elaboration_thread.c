@@ -23,7 +23,7 @@ void *elaboration_thread(void *arg)
     while (1) {
         /* Lock sync mutex */
         /* Thread must block here until there are messages */
-        simplog.writeLog(SIMPLOG_DEBUG,"Elaboration thread\n");
+        simplog.writeLog(SIMPLOG_DEBUG,"Elaboration thread");
         pthread_cond_wait(&wakeup_elab, &sync_elab_net_mutex);
         node = next_nqnode_out();
         id_packet = node->packet.identifier;

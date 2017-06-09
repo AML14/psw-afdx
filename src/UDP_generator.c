@@ -20,7 +20,8 @@ int main(int argc, char *argv[]) {
 
     if ((src_sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
-        /* Manage error */
+        perror("Socket error");
+        exit(1);
     }
     else
     {
@@ -28,12 +29,12 @@ int main(int argc, char *argv[]) {
         if (setsockopt(src_sock, SOL_SOCKET, SO_BROADCAST,
             &broadcast_enable, sizeof(broadcast_enable)) < 0)
         {
-            /* Manage error */
-            printf("Error al establecer opciones\n");
+            perror("Error setting socket options");
+            exit(1);
         }
         else
         {
-            printf("Sin error al establecer opciones\n");
+            printf("No error setting options\n");
         }
         /* This is a test. Fill net_packets with example data */
         for (i=0; i<NUM_PACKETS; i++)
@@ -85,18 +86,20 @@ int main(int argc, char *argv[]) {
                 0, (struct sockaddr *)&bc_addr, sizeof(bc_addr));
             if (data_sent < 0)
             {
-                /* Manage error */
+                perror("Error sending data");
+                exit(1);
             }
             else
             {
-                printf("Paquete %d enviado\n", i+1);
+                printf("Packet %d sent\n", i+1);
                 getc(stdin);
             }
         }
 
         if (close(src_sock) < 0)
         {
-            /* Manage error */
+            perror("Error closing socket");
+            exit(1);
         }
     }
     return 0;

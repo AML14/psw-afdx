@@ -19,12 +19,12 @@ nqnode_t *next_nqnode_in()
     int nptr;
     nqnode_t *node;
 
-    simplog.writeLog(SIMPLOG_DEBUG,"In:%d, out:%d\n", in_ptr, out_ptr);
+    simplog.writeLog(SIMPLOG_DEBUG,"In:%d, out:%d", in_ptr, out_ptr);
     /* Mutex queue */
     pthread_mutex_lock(&queue_mutex);
 
     nptr = (in_ptr + 1) % SIZE_QUEUE;
-    simplog.writeLog(SIMPLOG_DEBUG,"Current ptr: %d\n", nptr);
+    simplog.writeLog(SIMPLOG_DEBUG,"Current ptr: %d", nptr);
     if (nptr == out_ptr)
     {
         /* Queue is full */

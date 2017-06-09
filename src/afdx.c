@@ -14,8 +14,6 @@ intdata_t intdata;
 
 void init_all(char *net_server_ipaddr, int net_server_port)
 {
-    simplog.writeLog(SIMPLOG_DEBUG,"%s\n", net_server_ipaddr);
-    simplog.writeLog(SIMPLOG_DEBUG,"%d\n", net_server_port);
 	init_queue();
 	init_net(net_server_ipaddr, net_server_port);
 	init_elab();
@@ -70,11 +68,10 @@ int main(int argc, char *argv[]) {
 
     //daemonize();
 
+    simplog.setLogSilentMode(true);
     simplog.setLogFile("debug_afdx.log");
     simplog.flushLog();
     simplog.setLogDebugLevel(SIMPLOG_DEBUG);
-
-    simplog.writeLog(SIMPLOG_DEBUG,"Hola\n");
 
 	simplog.writeLog( SIMPLOG_INFO, "Starting..." );
 	simplog.writeLog( SIMPLOG_DEBUG, "Creating the internal data structure..." );
@@ -87,7 +84,7 @@ int main(int argc, char *argv[]) {
 
     init_all(argv[1], atoi(argv[2]));
 
-    simplog.writeLog(SIMPLOG_DEBUG,"Hola 1\n");
+    simplog.writeLog(SIMPLOG_DEBUG,"All threads initialized");
 
     while(1){}
 

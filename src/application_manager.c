@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <sys/un.h>
 #include <string.h>
+#include <stdio.h>
+#include <errno.h>
 #include "simplog.h"
 
 #include "application_manager.h"
@@ -26,25 +28,28 @@ void init_app_man() {
     sem_init(registering_mutex,0,1);
     if ((am_sockfd = socket(AF_UNIX, SOCK_STREAM, 0)) < 0)
     {
-        simplog.writeLog(SIMPLOG_DEBUG,"Error al crear el socket UNIX\n");
-        /* Manage error */
+        simplog.writeLog(SIMPLOG_FATAL,"app_man: error creating UNIX socket");
+        perror("app_man: error creating UNIX socket");
+        exit(1);
     }
     else
     {
         unlink(SOCKET_PATH);
-        simplog.writeLog(SIMPLOG_DEBUG,"Sin error al crear el socket\n");
+        simplog.writeLog(SIMPLOG_DEBUG,"app_man: no error creating UNIX socket");
         if (bind(am_sockfd, (struct sockaddr *)&am_socket_addr, sizeof(am_socket_addr)) < 0)
         {
-            simplog.writeLog(SIMPLOG_DEBUG,"Error al hacer bind al path\n");
-            /* Manage error */
+            simplog.writeLog(SIMPLOG_FATAL,"app_man: error binding to path");
+            perror("app_man: error binding to path");
+            exit(1);
         }
         else
         {
-            simplog.writeLog(SIMPLOG_DEBUG,"Sin error al hacer bind al path\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"app_man: no error binding to path");
             if (listen(am_sockfd, 5) < 0)
             {
-                simplog.writeLog(SIMPLOG_DEBUG,"Error en el listen\n");
-                /* Manage error */
+                simplog.writeLog(SIMPLOG_FATAL,"app_man: error in listen");
+                perror("app_man: error in listen");
+                exit(1);
             }
         }
     }
@@ -73,23 +78,21 @@ void *application_manager(void *arg)
 
     while(1)
     {
-        simplog.writeLog(SIMPLOG_DEBUG,"Application manager thread\n");
+        simplog.writeLog(SIMPLOG_DEBUG,"Application manager thread");
         rfds = managed_fds;
         xfds = managed_fds;
-        simplog.writeLog(SIMPLOG_DEBUG,"Antes de select\n");
         fdcnt = select(nfds, &rfds, NULL, &xfds, NULL);
-        simplog.writeLog(SIMPLOG_DEBUG,"Después de select\n");
         if (FD_ISSET(am_sockfd, &rfds))
         {
-            simplog.writeLog(SIMPLOG_DEBUG,"Antes de accept\n");
             remote_len = sizeof(remote);
             if ((newfd = accept(am_sockfd, (struct sockaddr *)&remote, &remote_len)) < 0)
             {
-                simplog.writeLog(SIMPLOG_DEBUG,"Error en accept\n");
-                /* Manage error */
+                simplog.writeLog(SIMPLOG_FATAL,"app_man: error in accept");
+                perror("app_man: error in accept");
+                exit(1);
             }
             else {
-                simplog.writeLog(SIMPLOG_DEBUG,"No error accepting connection\n");
+                simplog.writeLog(SIMPLOG_DEBUG,"app_man: no error accepting connection");
                 FD_SET(newfd, &managed_fds);
                 fdcnt--;
                 if (newfd >= nfds)
@@ -99,7 +102,9 @@ void *application_manager(void *arg)
         if (FD_ISSET(am_sockfd, &xfds))
         {
             /* Error in connection socket */
-            /* Manage error */
+            simplog.writeLog(SIMPLOG_FATAL,"app_man: error in connection socket");
+            perror("app_man: error in connection socket");
+            exit(1);
         }
         for(fd = 0; fd < nfds && fdcnt > 0; fd++)
         {
@@ -113,22 +118,26 @@ void *application_manager(void *arg)
                     if (pktlen < 0)
                     {
                         /* Error in application client */
-                        /* Manage error */
+                        simplog.writeLog(SIMPLOG_ERROR,"app_man: error in application client");
+                        perror("app_man: error in application client");
+                        unregister_application(fd);
+                        close(fd);
+                        FD_CLR(fd, &managed_fds);
                     }
                     /* Client closed  or error */
-                    simplog.writeLog(SIMPLOG_DEBUG,"Application unregistered\n");
+                    simplog.writeLog(SIMPLOG_DEBUG,"app_man: application unregistered");
                     unregister_application(fd);
                     close(fd);
-                    simplog.writeLog(SIMPLOG_DEBUG,"Socket closed\n");
+                    simplog.writeLog(SIMPLOG_DEBUG,"app_man: socket closed");
                     FD_CLR(fd, &managed_fds);
                 }
                 else
                 {
                     /* Process message */
                     msg_type = packet_msg.msg_type;
-                    simplog.writeLog(SIMPLOG_DEBUG,"%d\n", msg_type);
-                    simplog.writeLog(SIMPLOG_DEBUG,"%d\n", packet_msg.query.req_id);
-                    simplog.writeLog(SIMPLOG_DEBUG,"%d\n", packet_msg.query.data_id);
+                    simplog.writeLog(SIMPLOG_DEBUG,"%d", msg_type);
+                    simplog.writeLog(SIMPLOG_DEBUG,"%d", packet_msg.query.req_id);
+                    simplog.writeLog(SIMPLOG_DEBUG,"%d", packet_msg.query.data_id);
                     switch (msg_type) {
                         case AFDX_MSG_TYPE_REQUEST:
                             serve_query(fd, &(packet_msg.query));
@@ -170,69 +179,71 @@ void serve_query(int fd, app_query_t *query)
     data_id = query->data_id;
     switch (data_id) {
         case ENGINE_THROTTLE:
-            simplog.writeLog(SIMPLOG_DEBUG,"Dentro del switch-case 1\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"Inside switch-case 1");
             engine_id = query->engine_id;
             reply_msg.u8 = intdata.engines[engine_id].throttle;
             break;
         case ENGINE_REAL_THRUST:
-            simplog.writeLog(SIMPLOG_DEBUG,"Dentro del switch-case 1\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"Inside switch-case 2");
             engine_id = query->engine_id;
             reply_msg.u8 = intdata.engines[engine_id].real_thrust;
             break;
         case ENGINE_OIL_TEMP:
-            simplog.writeLog(SIMPLOG_DEBUG,"Dentro del switch-case 2\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"Inside switch-case 3");
             engine_id = query->engine_id;
             reply_msg.i16 = intdata.engines[engine_id].oil_temp;
             break;
         case ENGINE_OIL_PRESS:
-            simplog.writeLog(SIMPLOG_DEBUG,"Dentro del switch-case 3\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"Inside switch-case 4");
             engine_id = query->engine_id;
             reply_msg.i16 = intdata.engines[engine_id].oil_press;
             break;
         case ENGINE_FUEL_PRESS:
-            simplog.writeLog(SIMPLOG_DEBUG,"Dentro del switch-case 4\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"Inside switch-case 5");
             engine_id = query->engine_id;
             reply_msg.i16 = intdata.engines[engine_id].fuel_press;
             break;
         case ENGINE_STATUS:
-            simplog.writeLog(SIMPLOG_DEBUG,"Dentro del switch-case 5\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"Inside switch-case 6");
             engine_id = query->engine_id;
             reply_msg.u8 = intdata.engines[engine_id].status;
             break;
         case ENGINE_FLAGS:
-            simplog.writeLog(SIMPLOG_DEBUG,"Dentro del switch-case 6\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"Inside switch-case 7");
             engine_id = query->engine_id;
             reply_msg.u8 = intdata.engines[engine_id].engine_flags;
             break;
         case ATTITUDE_ALTITUDE:
-            simplog.writeLog(SIMPLOG_DEBUG,"Dentro del switch-case 7\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"Inside switch-case 8");
             reply_msg.i32 = intdata.attitude.altitude;
             break;
         case ATTITUDE_ROLL:
-            simplog.writeLog(SIMPLOG_DEBUG,"Dentro del switch-case 8\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"Inside switch-case 9");
             reply_msg.i16 = intdata.attitude.roll;
             break;
         case ATTITUDE_PITCH:
-            simplog.writeLog(SIMPLOG_DEBUG,"Dentro del switch-case 9\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"Inside switch-case 10");
             reply_msg.i16 = intdata.attitude.pitch;
             break;
         case ATTITUDE_YAW:
-            simplog.writeLog(SIMPLOG_DEBUG,"Dentro del switch-case 10\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"Inside switch-case 11");
             reply_msg.i16 = intdata.attitude.yaw;
             break;
         case SPEEDS_AOA:
-            simplog.writeLog(SIMPLOG_DEBUG,"Dentro del switch-case 11\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"Inside switch-case 12");
             reply_msg.i16 = intdata.speeds.aoa;
             break;
         case SPEEDS_AIRSPEED:
-            simplog.writeLog(SIMPLOG_DEBUG,"Dentro del switch-case 12\n");
+            simplog.writeLog(SIMPLOG_DEBUG,"Inside switch-case 13");
             reply_msg.i16 = intdata.speeds.airspeed;
             break;
     }
     data_sent = write(fd, &reply_msg, sizeof(reply_msg));
     if (data_sent < 0)
     {
-        /* Manage error */
+        simplog.writeLog(SIMPLOG_FATAL,"app_man: error sending data");
+        perror("app_man: error sending data");
+        exit(1);
     }
 }
 

@@ -2,6 +2,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <stdio.h>
 #include "simplog.h"
 
 #include "scheduler.h"
@@ -118,7 +119,9 @@ void *schedule_ts(void (*action)(void *), void *data, timespec_t *interval)
     node = (scheduler_node_t *)malloc(sizeof(scheduler_node_t));
     if (node == NULL)
     {
-        /* Manage error */
+        simplog.writeLog(SIMPLOG_FATAL,"sched: error of memory");
+        perror("sched: error of memory");
+        exit(1);
     }
     else
     {
@@ -165,7 +168,7 @@ void *scheduler_run(void *p)
     pthread_mutex_lock(&scheduler_mutex);
     while(1)
     {
-        simplog.writeLog(SIMPLOG_DEBUG,"Scheduler thread\n");
+        simplog.writeLog(SIMPLOG_DEBUG,"Scheduler thread");
         clock_gettime(CLOCK_REALTIME, (struct timespec *)&now);
         did_something = 0;
         /* While there is a first node and 'now' is later than the scheduler time
